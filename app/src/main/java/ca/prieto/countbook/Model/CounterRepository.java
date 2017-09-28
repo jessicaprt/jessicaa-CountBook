@@ -3,6 +3,7 @@ package ca.prieto.countbook.Model;
 import java.security.InvalidKeyException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observer;
 
 /**
  * Created by Jessica on 2017-09-27.
@@ -10,6 +11,8 @@ import java.util.List;
 
 public class CounterRepository {
     private List<Counter> counters;
+    public List<Observer> observables;
+
     private static CounterRepository instance = new CounterRepository();
     public static CounterRepository getInstance() {
         return instance;
@@ -30,6 +33,10 @@ public class CounterRepository {
             }
         }
         throw new CannotFindCounterException();
+    }
+
+    public void addCounter(Counter counter) {
+        this.counters.add(counter);
     }
 
     public class CannotFindCounterException extends RuntimeException {

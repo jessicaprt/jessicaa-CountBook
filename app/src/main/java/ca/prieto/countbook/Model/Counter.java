@@ -15,7 +15,7 @@ public class Counter {
     private String comment;
     private Date date;
 
-    public Counter(String name, String comment, int initialValue) {
+    public Counter(String name, int initialValue, String comment) {
         this.name = name;
         this.comment = comment;
         this.date = new Date();
