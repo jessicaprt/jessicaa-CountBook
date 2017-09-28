@@ -8,6 +8,11 @@ import ca.prieto.countbook.Model.CounterRepository;
  */
 
 public class CounterController {
+
+    private CounterController() {
+
+    }
+
     public void createCounter(String name, int initialValue, String comment) {
         Counter newCounter = new Counter(name,initialValue,comment);
     }

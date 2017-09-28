@@ -11,7 +11,7 @@ import java.util.Observer;
 
 public class CounterRepository {
     private List<Counter> counters;
-    public List<Observer> observables;
+    private List<CounterObserver> observers;
 
     private static CounterRepository instance = new CounterRepository();
     public static CounterRepository getInstance() {
@@ -33,6 +33,17 @@ public class CounterRepository {
             }
         }
         throw new CannotFindCounterException();
+    }
+
+    public void addObserver(CounterObserver observer) {
+        this.observers.add(observer);
+        observer.onCounterUpdated();
+    }
+
+    public void notifyObserverOfChange() {
+        for (CounterObserver observer : observers) {
+            observer.onCounterUpdated();
+        }
     }
 
     public void addCounter(Counter counter) {

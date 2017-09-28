@@ -17,13 +17,10 @@ public class AddCounterActivity extends AppCompatActivity {
     }
 
     public void createCounter() {
-        Intent intent = new Intent(this, CounterListActivity.class);
-
         EditText counterName = (EditText) findViewById(R.id.counterName);
         EditText initialValue = (EditText) findViewById(R.id.initialValue);
         EditText counterDescription = (EditText) findViewById(R.id.counterDescription);
 
-        startActivity(intent);
-
+        finish();
     }
 }
