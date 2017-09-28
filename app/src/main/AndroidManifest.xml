@@ -16,7 +16,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".View.AddCounterActivity"></activity>
+        <activity android:name=".View.AddCounterActivity" />
+        <activity android:name=".View.CounterDetailsActivity"></activity>
     </application>
 
 </manifest>

@@ -5,11 +5,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-import ca.prieto.countbook.Model.CounterObserver;
+import ca.prieto.countbook.Model.ICounterObserver;
 import ca.prieto.countbook.Model.CounterRepository;
 import ca.prieto.countbook.R;
 
-public class CounterListActivity extends AppCompatActivity implements CounterObserver{
+public class CounterListActivity extends AppCompatActivity implements ICounterObserver {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
