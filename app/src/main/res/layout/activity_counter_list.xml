@@ -7,7 +7,7 @@
     tools:context="ca.prieto.countbook.View.CounterListActivity">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/rvContacts"
+        android:id="@+id/recyclerViewCounters"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginLeft="16dp"

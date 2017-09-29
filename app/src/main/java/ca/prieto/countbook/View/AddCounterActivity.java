@@ -21,6 +21,8 @@ public class AddCounterActivity extends AppCompatActivity implements ICounterObs
         EditText initialValue = (EditText) findViewById(R.id.initialValue);
         EditText counterDescription = (EditText) findViewById(R.id.counterDescription);
 
+        // TO-DO: add new counter to counterRepository
+
         finish();
     }
 
