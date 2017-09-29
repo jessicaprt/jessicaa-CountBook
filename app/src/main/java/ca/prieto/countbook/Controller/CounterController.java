@@ -12,8 +12,10 @@ public class CounterController {
     private CounterController() {
     }
 
-    public void addCounter(String name, int initialValue, String comment) {
+    public static void addCounter(String name, int initialValue, String comment) {
         Counter newCounter = new Counter(name, initialValue, comment);
         CounterRepository.getInstance().addCounter(newCounter);
     }
+
+
 }

@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ca.prieto.countbook.Model.Counter;
@@ -18,11 +19,10 @@ import ca.prieto.countbook.R;
 
 public class CounterAdapter extends RecyclerView.Adapter<CounterAdapter.ViewHolder> {
 
-    private List<Counter> _counters;
+    private List<Counter> _counters = new ArrayList<Counter>();
     private Context _context;
 
-    public CounterAdapter(List<Counter> counters, Context mContext) {
-        this._counters = counters;
+    public CounterAdapter(Context mContext) {
         this._context = mContext;
     }
 
@@ -75,5 +75,10 @@ public class CounterAdapter extends RecyclerView.Adapter<CounterAdapter.ViewHold
 
             counterName = (TextView) itemView.findViewById(R.id.counter_name);
         }
+    }
+
+    public void setCounterList(List<Counter> counter) {
+        this._counters = counter;
+        notifyDataSetChanged();
     }
 }

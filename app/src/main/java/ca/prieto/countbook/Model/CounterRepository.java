@@ -3,6 +3,8 @@ package ca.prieto.countbook.Model;
 import java.util.ArrayList;
 import java.util.List;
 
+import ca.prieto.countbook.View.AddCounterActivity;
+
 /**
  * Created by Jessica on 2017-09-27.
  */
@@ -18,8 +20,8 @@ public class CounterRepository {
     }
 
     public CounterRepository() {
-
         this.counters = new ArrayList<Counter>();
+        this.observers = new ArrayList<ICounterObserver>();
     }
 
     public List<Counter> getCounterList() {
@@ -41,9 +43,15 @@ public class CounterRepository {
         observer.onCounterUpdated();
     }
 
+    public void removeObserver(ICounterObserver observer) {
+        this.observers.remove(observer);
+    }
+
     public void notifyObserverOfChange() {
-        for (ICounterObserver observer : observers) {
-            observer.onCounterUpdated();
+        if (observers != null) {
+            for (ICounterObserver observer : observers) {
+                observer.onCounterUpdated();
+            }
         }
     }
 

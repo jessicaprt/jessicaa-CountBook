@@ -16,6 +16,7 @@ import ca.prieto.countbook.R;
 
 public class CounterListActivity extends AppCompatActivity implements ICounterObserver {
     ArrayList<Counter> counters;
+    CounterAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,9 +26,21 @@ public class CounterListActivity extends AppCompatActivity implements ICounterOb
         RecyclerView recyclerViewCounters = (RecyclerView)findViewById(R.id.recyclerViewCounters);
 
         counters = (ArrayList<Counter>) CounterRepository.getInstance().getCounterList();
-        CounterAdapter adapter = new CounterAdapter(counters, this);
+        adapter = new CounterAdapter(this);
         recyclerViewCounters.setAdapter(adapter);
         recyclerViewCounters.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        CounterRepository.getInstance().addObserver(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        CounterRepository.getInstance().removeObserver(this);
     }
 
     public void addCounter(View view) {
@@ -38,8 +51,8 @@ public class CounterListActivity extends AppCompatActivity implements ICounterOb
     @Override
     public void onCounterUpdated() {
         //TO-DO : render counters
-
         //updated list to be viewed on the page
-        CounterRepository.getInstance().getCounterList();
+        adapter.setCounterList(CounterRepository.getInstance().getCounterList());
+
     }
 }
