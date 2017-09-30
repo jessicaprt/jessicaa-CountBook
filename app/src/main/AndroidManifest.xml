@@ -17,7 +17,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".View.AddCounterActivity" />
-        <activity android:name=".View.CounterDetailsActivity"></activity>
+        <activity android:name=".View.CounterDetailsActivity" />
+        <activity android:name=".View.ItemCounterActivity"></activity>
     </application>
 
 </manifest>

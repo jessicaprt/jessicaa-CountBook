@@ -20,14 +20,11 @@ import ca.prieto.countbook.R;
 public class CounterAdapter extends RecyclerView.Adapter<CounterAdapter.ViewHolder> {
 
     private List<Counter> _counters = new ArrayList<Counter>();
+    private OnItemClickListener listener;
     private Context _context;
 
     public CounterAdapter(Context mContext) {
         this._context = mContext;
-    }
-
-    private Context getContext() {
-        return this._context;
     }
 
     /**
@@ -43,10 +40,15 @@ public class CounterAdapter extends RecyclerView.Adapter<CounterAdapter.ViewHold
         LayoutInflater inflater = LayoutInflater.from(context);
 
         // Inflate the custom layout
-        View counterView = inflater.inflate(R.layout.item_counter, parent, false);
+        View counterView = inflater.inflate(R.layout.activity_item_counter, parent, false);
 
         ViewHolder viewHolder = new ViewHolder(counterView);
+
         return (viewHolder);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
     }
 
     /**
@@ -67,18 +69,36 @@ public class CounterAdapter extends RecyclerView.Adapter<CounterAdapter.ViewHold
         return _counters.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView counterName;
-
-        public ViewHolder(View itemView) {
-            super(itemView);
-
-            counterName = (TextView) itemView.findViewById(R.id.counter_name);
-        }
-    }
-
     public void setCounterList(List<Counter> counter) {
         this._counters = counter;
         notifyDataSetChanged();
+    }
+
+
+
+    public interface OnItemClickListener {
+        void onItemClick(View itemView, int position);
+    }
+
+
+
+    public class ViewHolder extends RecyclerView.ViewHolder  {
+        public TextView counterName;
+
+        public ViewHolder(final View itemView) {
+            super(itemView);
+            counterName = (TextView) itemView.findViewById(R.id.counter_name);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (listener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            listener.onItemClick(itemView, position);
+                        }
+                    }
+                }
+            });
+        }
     }
 }

@@ -3,6 +3,7 @@ package ca.prieto.countbook.View;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -14,9 +15,12 @@ import ca.prieto.countbook.Model.ICounterObserver;
 import ca.prieto.countbook.Model.CounterRepository;
 import ca.prieto.countbook.R;
 
-public class CounterListActivity extends AppCompatActivity implements ICounterObserver {
+public class CounterListActivity extends AppCompatActivity implements ICounterObserver, CounterAdapter.OnItemClickListener {
     ArrayList<Counter> counters;
     CounterAdapter adapter;
+    public static final String CounterListMessage = "com.prieto.CounterBook.CounterList";
+
+    private static CounterListActivity instance = new CounterListActivity();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,8 +31,12 @@ public class CounterListActivity extends AppCompatActivity implements ICounterOb
 
         counters = (ArrayList<Counter>) CounterRepository.getInstance().getCounterList();
         adapter = new CounterAdapter(this);
+        adapter.setOnItemClickListener(this);
         recyclerViewCounters.setAdapter(adapter);
         recyclerViewCounters.setLayoutManager(new LinearLayoutManager(this));
+        RecyclerView.ItemDecoration itemDecoration = new
+                DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+        recyclerViewCounters.addItemDecoration(itemDecoration);
     }
 
     @Override
@@ -53,6 +61,13 @@ public class CounterListActivity extends AppCompatActivity implements ICounterOb
         //TO-DO : render counters
         //updated list to be viewed on the page
         adapter.setCounterList(CounterRepository.getInstance().getCounterList());
+    }
 
+    @Override
+    public void onItemClick(View itemView, int position) {
+        Counter counter = counters.get(position);
+        Intent intent = new Intent(this, CounterDetailsActivity.class);
+        intent.putExtra(CounterListMessage, counter.getId());
+        startActivity(intent);
     }
 }
