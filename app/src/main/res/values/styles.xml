@@ -8,4 +8,12 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="jesstheme" parent="Theme.AppCompat.Light.NoActionBar" >
+        <item name="colorPrimaryDark">@color/primary_dark_material_light_1</item>
+        <item name="colorAccent">@color/primary_dark_material_light_1</item>
+        <item name="colorPrimary">@color/primary_dark_material_light_1</item>
+        <item name="android:colorForeground">@color/foreground_material_light</item>
+        <item name="android:textColorPrimary">@android:color/background_light</item>
+    </style>
+
 </resources>

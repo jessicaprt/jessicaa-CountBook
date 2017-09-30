@@ -15,6 +15,11 @@ import ca.prieto.countbook.Model.CounterRepository;
 import ca.prieto.countbook.Model.ICounterObserver;
 import ca.prieto.countbook.R;
 
+/**
+ * TODO: add current count in list view beside the counter name
+ * TODO: attempt to display "No counters to display" when there are no counters in the list
+ */
+
 public class CounterListActivity extends AppCompatActivity implements ICounterObserver, CounterAdapter.OnItemClickListener {
     ArrayList<Counter> counters;
     CounterAdapter adapter;

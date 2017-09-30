@@ -9,6 +9,13 @@ import android.widget.TextView;
 import ca.prieto.countbook.Model.CounterRepository;
 import ca.prieto.countbook.R;
 
+/**
+ *  TODO: implement increment and decrement methods to CounterController
+ *  TODO: implement delete method in CounterController
+ *  TODO: implement edit method for each counter
+ *  TODO: set counter limit
+ *
+ */
 public class CounterDetailsActivity extends AppCompatActivity {
 
     @Override
