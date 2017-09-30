@@ -23,7 +23,7 @@
         android:layout_marginEnd="16dp" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/currentCount"
         android:layout_width="140dp"
         android:layout_height="87dp"
         android:layout_marginTop="16dp"
@@ -32,14 +32,14 @@
         android:gravity="center"
         android:text="0"
         android:textSize="50sp"
-        app:layout_constraintTop_toBottomOf="@+id/textView3"
-        app:layout_constraintLeft_toRightOf="@+id/button2"
+        app:layout_constraintTop_toBottomOf="@+id/date"
+        app:layout_constraintLeft_toRightOf="@+id/decrementButton"
         android:layout_marginLeft="10dp"
-        app:layout_constraintRight_toLeftOf="@+id/button3"
+        app:layout_constraintRight_toLeftOf="@+id/incrementButton"
         android:layout_marginRight="10dp" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/decrementButton"
         android:layout_width="88dp"
         android:layout_height="88dp"
         android:layout_marginLeft="16dp"
@@ -48,10 +48,10 @@
         android:text="-"
         android:textSize="30sp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toBottomOf="@+id/date" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/incrementButton"
         android:layout_width="88dp"
         android:layout_height="88dp"
         android:layout_marginEnd="16dp"
@@ -60,10 +60,10 @@
         android:text="+"
         android:textSize="30sp"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toBottomOf="@+id/date" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
@@ -74,7 +74,7 @@
         app:layout_constraintTop_toBottomOf="@+id/currentCounterName" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/comment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
@@ -82,10 +82,10 @@
         android:layout_marginTop="19dp"
         android:text="Comments"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/currentCount" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/editCounterButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
@@ -94,13 +94,13 @@
         android:text="Edit Counter"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button7"
+        app:layout_constraintTop_toBottomOf="@+id/resetCounterButton"
         app:layout_constraintHorizontal_bias="0.0"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp" />
 
     <Button
-        android:id="@+id/button6"
+        android:id="@+id/deleteCounterButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -111,10 +111,10 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button4" />
+        app:layout_constraintTop_toBottomOf="@+id/editCounterButton" />
 
     <Button
-        android:id="@+id/button7"
+        android:id="@+id/resetCounterButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
@@ -124,6 +124,6 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toBottomOf="@+id/comment" />
 
 </android.support.constraint.ConstraintLayout>

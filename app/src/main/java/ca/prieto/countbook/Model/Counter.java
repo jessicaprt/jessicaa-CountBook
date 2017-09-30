@@ -10,8 +10,8 @@ import java.util.UUID;
 public class Counter {
     private String name;
     private String id;
-    private int initialValue;
-    private int currentValue;
+    private Integer initialValue;
+    private Integer currentValue;
     private String comment;
     private Date date;
 
@@ -32,11 +32,11 @@ public class Counter {
         return id;
     }
 
-    public int getInitialValue() {
+    public Integer getInitialValue() {
         return initialValue;
     }
 
-    public int getCurrentValue() {
+    public Integer getCurrentValue() {
         return currentValue;
     }
 
