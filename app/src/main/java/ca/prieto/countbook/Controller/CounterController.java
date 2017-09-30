@@ -17,5 +17,19 @@ public class CounterController {
         CounterRepository.getInstance().addCounter(newCounter);
     }
 
+    public static String incrementCounter(String counterId, Integer curr) {
+        curr++;
+        CounterRepository.getInstance().changeCounter(counterId, curr);
+        return curr.toString();
+    }
 
+    public static String decrementCounter(String counterId, Integer curr) {
+        if (curr > 0) curr--;
+        CounterRepository.getInstance().changeCounter(counterId,curr);
+        return curr.toString();
+    }
+
+    public static void resetCounter(String counterId, Integer initialValue) {
+        CounterRepository.getInstance().changeCounter(counterId,initialValue);
+    }
 }

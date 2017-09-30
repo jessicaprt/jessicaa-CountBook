@@ -25,6 +25,7 @@ public class Counter {
     }
 
     public String getName() {
+
         return name;
     }
 
@@ -33,18 +34,26 @@ public class Counter {
     }
 
     public Integer getInitialValue() {
+
         return initialValue;
     }
 
     public Integer getCurrentValue() {
+
         return currentValue;
     }
 
+    public void setCurrentValue(Integer val) {
+        this.currentValue = val;
+    }
+
     public String getComment() {
+
         return comment;
     }
 
     public Date getDate() {
+
         return date;
     }
 }

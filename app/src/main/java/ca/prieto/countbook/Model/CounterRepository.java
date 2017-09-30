@@ -60,6 +60,10 @@ public class CounterRepository {
         notifyObserverOfChange();
     }
 
+    public void changeCounter(String id, Integer value) {
+        Counter counter = getCounterById(id);
+        counter.setCurrentValue(value);
+    }
     public class CannotFindCounterException extends RuntimeException {
 
     }
