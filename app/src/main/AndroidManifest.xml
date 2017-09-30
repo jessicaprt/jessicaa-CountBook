@@ -16,9 +16,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".View.AddCounterActivity" />
-        <activity android:name=".View.CounterDetailsActivity" />
-        <activity android:name=".View.ItemCounterActivity"></activity>
+        <activity android:name=".View.AddCounterActivity"
+                  android:parentActivityName=".View.CounterListActivity" />
+        <activity android:name=".View.CounterDetailsActivity"
+                  android:parentActivityName=".View.CounterListActivity" ></activity>
     </application>
 
 </manifest>

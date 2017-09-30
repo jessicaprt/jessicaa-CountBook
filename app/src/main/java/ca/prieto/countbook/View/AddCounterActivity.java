@@ -6,8 +6,6 @@ import android.view.View;
 import android.widget.EditText;
 
 import ca.prieto.countbook.Controller.CounterController;
-import ca.prieto.countbook.Model.ICounterObserver;
-import ca.prieto.countbook.Model.CounterRepository;
 import ca.prieto.countbook.R;
 
 public class AddCounterActivity extends AppCompatActivity {
