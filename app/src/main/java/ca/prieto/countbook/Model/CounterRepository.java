@@ -76,6 +76,13 @@ public class CounterRepository {
         notifyObserverOfChange();
     }
 
+    public void updateCounter(Counter currentCounter, Counter updatedCounter) {
+        currentCounter.setName(updatedCounter.getName());
+        currentCounter.setInitialValue(updatedCounter.getInitialValue());
+        currentCounter.setComment(updatedCounter.getComment());
+        notifyObserverOfChange();
+    }
+
     public class CannotFindCounterException extends RuntimeException {
 
     }

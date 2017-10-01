@@ -20,13 +20,9 @@ public class AddCounterActivity extends AppCompatActivity {
     public void createCounter(View view) {
         EditText counterName = (EditText) findViewById(R.id.counterName);
         TextInputLayout counterNameWrapper = (TextInputLayout) findViewById(R.id.counterNameWrapper);
-        counterNameWrapper.setErrorEnabled(true);
-        counterNameWrapper.setError("This field cannot be blank!");
 
         EditText initialValue = (EditText) findViewById(R.id.initialValue);
         TextInputLayout initialValueWrapper = (TextInputLayout) findViewById(R.id.initialValueWrapper);
-        initialValueWrapper.setErrorEnabled(true);
-        initialValueWrapper.setError("This field cannot be blank");
 
         EditText counterDescription = (EditText) findViewById(R.id.counterDescription);
 
@@ -37,6 +33,11 @@ public class AddCounterActivity extends AppCompatActivity {
                     Integer.parseInt(initialValue.getText().toString()),
                     counterDescription.getText().toString());
             finish();
+        } else {
+            counterNameWrapper.setErrorEnabled(true);
+            counterNameWrapper.setError("This field cannot be blank!");
+            initialValueWrapper.setErrorEnabled(true);
+            initialValueWrapper.setError("This field cannot be blank");
         }
     }
 }

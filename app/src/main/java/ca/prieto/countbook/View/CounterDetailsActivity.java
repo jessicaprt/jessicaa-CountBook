@@ -105,6 +105,20 @@ public class CounterDetailsActivity extends AppCompatActivity implements ICounte
     public void onCounterUpdated() {
         try {
             setTextFromView(getCurrentCount(), instance.getCounterById(counterId).getCurrentValue().toString());
+
+            setTextFromView(getCounterName(), instance.getCounterById(counterId).getName());
+            setTextFromView(getCurrentCount(), instance.getCounterById(counterId).getCurrentValue().toString());
+            setTextFromView(getCounterDescription(), instance.getCounterById(counterId).getComment().toString());
+            setTextFromView(getCounterDate(), "Created: " + instance.getCounterById(counterId).getDate().toString());
+
+            Button resetButton = (Button) findViewById(R.id.resetCounterButton);
+            resetButton.setText("Reset Counter (" +
+                    CounterRepository
+                            .getInstance()
+                            .getCounterById(counterId)
+                            .getInitialValue() +
+                    ")");
+
         } catch (CounterRepository.CannotFindCounterException e) {
             finish();
         }

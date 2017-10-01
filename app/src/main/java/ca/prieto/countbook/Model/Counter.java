@@ -24,18 +24,26 @@ public class Counter {
         this.id = UUID.randomUUID().toString();
     }
 
-    public String getName() {
+    public String getId() {
 
+        return id;
+    }
+
+    public String getName() {
         return name;
     }
 
-    public String getId() {
-        return id;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Integer getInitialValue() {
 
         return initialValue;
+    }
+
+    public void setInitialValue(Integer initialValue) {
+        this.initialValue = initialValue;
     }
 
     public Integer getCurrentValue() {
@@ -48,8 +56,11 @@ public class Counter {
     }
 
     public String getComment() {
-
         return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
     public Date getDate() {
