@@ -71,6 +71,11 @@ public class CounterRepository {
         notifyObserverOfChange();
     }
 
+    public void removeCounter(Counter counterToBeDeleted) {
+        this.counters.remove(counterToBeDeleted);
+        notifyObserverOfChange();
+    }
+
     public class CannotFindCounterException extends RuntimeException {
 
     }

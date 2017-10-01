@@ -17,12 +17,12 @@ import ca.prieto.countbook.Model.ICounterObserver;
 import ca.prieto.countbook.R;
 
 /**
- *  TODO: implement delete method in CounterController
  *  TODO: implement edit method for each counter
  *  TODO: set counter limit
  *
  */
 public class CounterDetailsActivity extends AppCompatActivity implements ICounterObserver {
+    public static final String CounterDetailsMessage = "com.prieto.CounterBook.CounterDetails";
     CounterRepository instance;
     String counterId;
 
@@ -96,12 +96,17 @@ public class CounterDetailsActivity extends AppCompatActivity implements ICounte
     public void editCounter(View view) {
         Intent intent = new Intent(this, CounterDetailsEditActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        intent.putExtra(CounterDetailsMessage, counterId);
         startActivityForResult(intent, 0);
         overridePendingTransition(0,0);
     }
 
     @Override
     public void onCounterUpdated() {
-        setTextFromView(getCurrentCount(), instance.getCounterById(counterId).getCurrentValue().toString());
+        try {
+            setTextFromView(getCurrentCount(), instance.getCounterById(counterId).getCurrentValue().toString());
+        } catch (CounterRepository.CannotFindCounterException e) {
+            finish();
+        }
     }
 }

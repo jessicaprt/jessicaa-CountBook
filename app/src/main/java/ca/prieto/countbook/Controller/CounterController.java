@@ -35,4 +35,9 @@ public class CounterController {
         Counter counter = CounterRepository.getInstance().getCounterById(counterId);
         CounterRepository.getInstance().changeCounter(counter, counter.getInitialValue());
     }
+
+    public static void deleteCounter(String counterId) {
+        Counter counterToBeDeleted = CounterRepository.getInstance().getCounterById(counterId);
+        CounterRepository.getInstance().removeCounter(counterToBeDeleted);
+    }
 }
