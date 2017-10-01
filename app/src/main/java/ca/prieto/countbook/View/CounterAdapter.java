@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,8 +62,11 @@ public class CounterAdapter extends RecyclerView.Adapter<CounterAdapter.ViewHold
     public void onBindViewHolder(CounterAdapter.ViewHolder holder, int position) {
         Counter counter = _counters.get(position);
 
-        TextView textView = holder.counterName;
-        textView.setText(counter.getName());
+        TextView counterName = holder.counterName;
+        counterName.setText(counter.getName());
+
+        TextView currentCount = holder.currentCount;
+        currentCount.setText(counter.getCurrentValue().toString());
     }
 
     @Override
@@ -69,8 +74,8 @@ public class CounterAdapter extends RecyclerView.Adapter<CounterAdapter.ViewHold
         return _counters.size();
     }
 
-    public void setCounterList(List<Counter> counter) {
-        this._counters = counter;
+    public void setCounterList(List<Counter> counters) {
+        this._counters = counters;
         notifyDataSetChanged();
     }
 
@@ -84,10 +89,14 @@ public class CounterAdapter extends RecyclerView.Adapter<CounterAdapter.ViewHold
 
     public class ViewHolder extends RecyclerView.ViewHolder  {
         public TextView counterName;
+        public TextView currentCount;
 
         public ViewHolder(final View itemView) {
             super(itemView);
+
             counterName = (TextView) itemView.findViewById(R.id.counter_name);
+            currentCount = (TextView) itemView.findViewById(R.id.currentCount);
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

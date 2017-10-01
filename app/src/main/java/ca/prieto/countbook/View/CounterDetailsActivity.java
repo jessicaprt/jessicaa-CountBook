@@ -1,11 +1,14 @@
 package ca.prieto.countbook.View;
 
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import ca.prieto.countbook.Controller.CounterController;
 import ca.prieto.countbook.Model.CounterRepository;
@@ -13,7 +16,6 @@ import ca.prieto.countbook.Model.ICounterObserver;
 import ca.prieto.countbook.R;
 
 /**
- *  TODO: implement increment and decrement methods to CounterController
  *  TODO: implement delete method in CounterController
  *  TODO: implement edit method for each counter
  *  TODO: set counter limit
@@ -24,8 +26,19 @@ public class CounterDetailsActivity extends AppCompatActivity {
     String counterId;
 
     public TextView getCurrentCount() {
-        TextView currentCount = (TextView) findViewById(R.id.currentCount);
-        return currentCount;
+        return (TextView) findViewById(R.id.currentCount);
+    }
+
+    public TextView getCounterName() {
+        return (TextView) findViewById(R.id.currentCounterName);
+    }
+
+    public TextView getCounterDescription() {
+        return (TextView) findViewById(R.id.counterComment);
+    }
+
+    public TextView getCounterDate() {
+        return (TextView) findViewById(R.id.date);
     }
 
     @Override
@@ -37,14 +50,10 @@ public class CounterDetailsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         counterId = intent.getStringExtra(CounterListActivity.CounterListMessage);
 
-        TextView currentCounterName = (TextView) findViewById(R.id.currentCounterName);
-        currentCounterName.setText(instance.getCounterById(counterId).getName());
-
-        TextView currentCount = getCurrentCount();
-        currentCount.setText(instance.getCounterById(counterId).getCurrentValue().toString());
-
-        TextView date = (TextView) findViewById(R.id.date);
-        date.setText("Created: " + instance.getCounterById(counterId).getDate().toString());
+        setTextFromView(getCounterName(), instance.getCounterById(counterId).getName());
+        setTextFromView(getCurrentCount(), instance.getCounterById(counterId).getCurrentValue().toString());
+        setTextFromView(getCounterDescription(), instance.getCounterById(counterId).getComment().toString());
+        setTextFromView(getCounterDate(), "Created: " + instance.getCounterById(counterId).getDate().toString());
 
         Button resetButton = (Button) findViewById(R.id.resetCounterButton);
         resetButton.setText("Reset Counter (" +
@@ -53,6 +62,10 @@ public class CounterDetailsActivity extends AppCompatActivity {
                                     .getCounterById(counterId)
                                     .getInitialValue() +
                             ")");
+    }
+
+    public void setTextFromView(TextView textView, String message) {
+        textView.setText(message);
     }
 
     public void incrementCounter(View view) {
@@ -73,6 +86,9 @@ public class CounterDetailsActivity extends AppCompatActivity {
         changeCounterDisplay(getCurrentCount(), initialValue.toString());
     }
 
+    public void editCounter() {
+
+    }
     public void changeCounterDisplay(TextView textView, String string) {
         textView.setText(string);
     }

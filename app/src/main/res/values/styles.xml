@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -14,6 +14,14 @@
         <item name="colorPrimary">@color/primary_dark_material_light_1</item>
         <item name="android:colorForeground">@color/foreground_material_light</item>
         <item name="android:textColorPrimary">@android:color/background_light</item>
+    </style>
+
+    <style name="custom_dark_theme" parent="AppTheme" >
+        <item name="android:colorBackground">@color/background_material_light</item>
+        <item name="android:textColorPrimary">@android:color/background_light</item>
+        <item name="android:textColorSecondary">@android:color/background_light</item>
+        <item name="android:textColorSecondaryInverse">@android:color/background_light</item>
+        <item name="android:windowBackground">@android:color/background_light</item>
     </style>
 
 </resources>
