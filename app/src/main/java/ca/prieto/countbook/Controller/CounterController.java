@@ -17,19 +17,22 @@ public class CounterController {
         CounterRepository.getInstance().addCounter(newCounter);
     }
 
-    public static String incrementCounter(String counterId, Integer curr) {
-        curr++;
-        CounterRepository.getInstance().changeCounter(counterId, curr);
-        return curr.toString();
+    public static void incrementCounter(String counterId) {
+        Counter counter = CounterRepository.getInstance().getCounterById(counterId);
+        int counterValue = counter.getCurrentValue() + 1;
+        CounterRepository.getInstance().changeCounter(counter, counterValue);
     }
 
-    public static String decrementCounter(String counterId, Integer curr) {
-        if (curr > 0) curr--;
-        CounterRepository.getInstance().changeCounter(counterId,curr);
-        return curr.toString();
+    public static void decrementCounter(String counterId) {
+        Counter counter = CounterRepository.getInstance().getCounterById(counterId);
+        if (counter.getCurrentValue() > 0) {
+            int counterValue = counter.getCurrentValue() - 1;
+            CounterRepository.getInstance().changeCounter(counter, counterValue);
+        }
     }
 
-    public static void resetCounter(String counterId, Integer initialValue) {
-        CounterRepository.getInstance().changeCounter(counterId,initialValue);
+    public static void resetCounter(String counterId) {
+        Counter counter = CounterRepository.getInstance().getCounterById(counterId);
+        CounterRepository.getInstance().changeCounter(counter, counter.getInitialValue());
     }
 }

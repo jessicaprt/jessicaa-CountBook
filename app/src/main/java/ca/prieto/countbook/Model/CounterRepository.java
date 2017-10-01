@@ -59,11 +59,18 @@ public class CounterRepository {
         this.counters.add(counter);
         notifyObserverOfChange();
     }
-
-    public void changeCounter(String id, Integer value) {
-        Counter counter = getCounterById(id);
+    
+    public void changeCounter(Counter counter, Integer value) {
         counter.setCurrentValue(value);
+        notifyObserverOfChange();
     }
+
+    public void changeCounter2 (Counter counter) {
+        int currentValue = counter.getCurrentValue() - 1;
+        counter.setCurrentValue(currentValue);
+        notifyObserverOfChange();
+    }
+
     public class CannotFindCounterException extends RuntimeException {
 
     }

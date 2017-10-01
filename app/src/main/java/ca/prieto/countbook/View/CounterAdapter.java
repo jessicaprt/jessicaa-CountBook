@@ -79,13 +79,9 @@ public class CounterAdapter extends RecyclerView.Adapter<CounterAdapter.ViewHold
         notifyDataSetChanged();
     }
 
-
-
     public interface OnItemClickListener {
         void onItemClick(View itemView, int position);
     }
-
-
 
     public class ViewHolder extends RecyclerView.ViewHolder  {
         public TextView counterName;

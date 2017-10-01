@@ -11,6 +11,7 @@ import android.widget.TextView;
 import org.w3c.dom.Text;
 
 import ca.prieto.countbook.Controller.CounterController;
+import ca.prieto.countbook.Model.Counter;
 import ca.prieto.countbook.Model.CounterRepository;
 import ca.prieto.countbook.Model.ICounterObserver;
 import ca.prieto.countbook.R;
@@ -21,7 +22,7 @@ import ca.prieto.countbook.R;
  *  TODO: set counter limit
  *
  */
-public class CounterDetailsActivity extends AppCompatActivity {
+public class CounterDetailsActivity extends AppCompatActivity implements ICounterObserver {
     CounterRepository instance;
     String counterId;
 
@@ -39,6 +40,18 @@ public class CounterDetailsActivity extends AppCompatActivity {
 
     public TextView getCounterDate() {
         return (TextView) findViewById(R.id.date);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        CounterRepository.getInstance().addObserver(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        CounterRepository.getInstance().removeObserver(this);
     }
 
     @Override
@@ -69,27 +82,26 @@ public class CounterDetailsActivity extends AppCompatActivity {
     }
 
     public void incrementCounter(View view) {
-        Integer currentValue = instance.getCounterById(counterId).getCurrentValue();
-        String currentValueString = CounterController.incrementCounter(counterId, currentValue);
-        changeCounterDisplay(getCurrentCount(), currentValueString);
+        CounterController.incrementCounter(counterId);
     }
 
     public void decrementCounter(View view) {
-        Integer currentValue = instance.getCounterById(counterId).getCurrentValue();
-        String currentValueString =CounterController.decrementCounter(counterId, currentValue);
-        changeCounterDisplay(getCurrentCount(), currentValueString);
+        CounterController.decrementCounter(counterId);
     }
 
     public void resetCounter(View view) {
-        Integer initialValue = instance.getCounterById(counterId).getInitialValue();
-        CounterController.resetCounter(counterId, initialValue);
-        changeCounterDisplay(getCurrentCount(), initialValue.toString());
+        CounterController.resetCounter(counterId);
     }
 
-    public void editCounter() {
-
+    public void editCounter(View view) {
+        Intent intent = new Intent(this, CounterDetailsEditActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        startActivityForResult(intent, 0);
+        overridePendingTransition(0,0);
     }
-    public void changeCounterDisplay(TextView textView, String string) {
-        textView.setText(string);
+
+    @Override
+    public void onCounterUpdated() {
+        setTextFromView(getCurrentCount(), instance.getCounterById(counterId).getCurrentValue().toString());
     }
 }
