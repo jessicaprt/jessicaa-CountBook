@@ -77,13 +77,25 @@ public class CounterEditActivity extends AppCompatActivity {
                                             comment.getText().toString());
             finish();
 
-        } else {
+        } else if (counterName.getText().toString().trim().equalsIgnoreCase("")) {
             counterNameWrapper.setErrorEnabled(true);
             counterNameWrapper.setError("This field cannot be blank!");
+        } else if (initialValue.getText().toString().trim().equalsIgnoreCase("")) {
             initialValueWrapper.setErrorEnabled(true);
             initialValueWrapper.setError("This field cannot be blank");
+        } else if(currentValue.getText().toString().trim().equalsIgnoreCase("")) {
             currentValueWrapper.setErrorEnabled(true);
             currentValueWrapper.setError("This field cannot be blank");
+        }
+
+        if (!counterName.getText().toString().trim().equalsIgnoreCase("")) {
+            counterNameWrapper.setErrorEnabled(false);
+        }
+        if (!initialValue.getText().toString().trim().equalsIgnoreCase("")) {
+            initialValueWrapper.setErrorEnabled(false);
+        }
+        if (!currentValue.getText().toString().trim().equalsIgnoreCase("")) {
+            currentValueWrapper.setErrorEnabled(false);
         }
     }
 

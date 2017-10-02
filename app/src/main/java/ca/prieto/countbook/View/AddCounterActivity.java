@@ -34,11 +34,20 @@ public class AddCounterActivity extends AppCompatActivity {
                     counterDescription.getText().toString());
             finish();
 
-        } else {
+        } else if (counterName.getText().toString().trim().equalsIgnoreCase("")){
             counterNameWrapper.setErrorEnabled(true);
             counterNameWrapper.setError("This field cannot be blank!");
+        } else if (initialValue.getText().toString().trim().equalsIgnoreCase("")) {
             initialValueWrapper.setErrorEnabled(true);
             initialValueWrapper.setError("This field cannot be blank");
+        }
+
+        if (!counterName.getText().toString().trim().equalsIgnoreCase("")) {
+            counterNameWrapper.setErrorEnabled(false);
+        }
+
+        if (!initialValue.getText().toString().trim().equalsIgnoreCase("")) {
+            initialValueWrapper.setErrorEnabled(false);
         }
     }
 }
