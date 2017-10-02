@@ -7,8 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,47 +16,33 @@ import ca.prieto.countbook.R;
 
 /**
  * Created by Jessica on 2017-09-28.
+ * based on ReclyclerView tutorial found on:
+ *      https://guides.codepath.com/android/Using-the-RecyclerView#create-the-recyclerview-within-layout
  */
 
 public class CounterAdapter extends RecyclerView.Adapter<CounterAdapter.ViewHolder> {
 
     private List<Counter> _counters = new ArrayList<Counter>();
-    private OnItemClickListener listener;
+    private IOnItemClickListener listener;
     private Context _context;
 
     public CounterAdapter(Context mContext) {
         this._context = mContext;
     }
 
-    /**
-     * inflating a layout from XML and returning the holder
-     *
-     * @param parent the parent view to obtain the layout from
-     * @param viewType
-     * @return the ViewHolder (the holder for the XML layout) from the parent
-     */
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext(); //returns the context the view is running in, gets access to the resources
         LayoutInflater inflater = LayoutInflater.from(context);
-
-        // Inflate the custom layout
         View counterView = inflater.inflate(R.layout.activity_item_counter, parent, false);
-
         ViewHolder viewHolder = new ViewHolder(counterView);
-
         return (viewHolder);
     }
 
-    public void setOnItemClickListener(OnItemClickListener listener) {
+    public void setOnItemClickListener(IOnItemClickListener listener) {
         this.listener = listener;
     }
 
-    /**
-     * Populates the data into the item through the holder
-     * @param holder the ViewHolder that holds the layout
-     * @param position
-     */
     @Override
     public void onBindViewHolder(CounterAdapter.ViewHolder holder, int position) {
         Counter counter = _counters.get(position);
@@ -67,6 +52,10 @@ public class CounterAdapter extends RecyclerView.Adapter<CounterAdapter.ViewHold
 
         TextView currentCount = holder.currentCount;
         currentCount.setText(counter.getCurrentValue().toString());
+
+        TextView currentDate = holder.currentDate;
+        currentDate.setText(new SimpleDateFormat("yyyy-MM-dd")
+                            .format(counter.getDate()));
     }
 
     @Override
@@ -79,19 +68,21 @@ public class CounterAdapter extends RecyclerView.Adapter<CounterAdapter.ViewHold
         notifyDataSetChanged();
     }
 
-    public interface OnItemClickListener {
+    public interface IOnItemClickListener {
         void onItemClick(View itemView, int position);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder  {
         public TextView counterName;
         public TextView currentCount;
+        public TextView currentDate;
 
         public ViewHolder(final View itemView) {
             super(itemView);
 
             counterName = (TextView) itemView.findViewById(R.id.counter_name);
             currentCount = (TextView) itemView.findViewById(R.id.currentCount);
+            currentDate = (TextView) itemView.findViewById(R.id.lastUpdated);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

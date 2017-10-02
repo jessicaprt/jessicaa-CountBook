@@ -25,7 +25,6 @@ public class Counter {
     }
 
     public String getId() {
-
         return id;
     }
 
@@ -47,7 +46,6 @@ public class Counter {
     }
 
     public Integer getCurrentValue() {
-
         return currentValue;
     }
 

@@ -12,37 +12,41 @@ public class CounterController {
     private CounterController() {
     }
 
+    public static Counter getCounter(String counterId) {
+        return CounterRepository.getInstance().getCounterById(counterId);
+    }
+
     public static void addCounter(String name, int initialValue, String comment) {
         Counter newCounter = new Counter(name, initialValue, comment);
-        CounterRepository.getInstance().addCounter(newCounter);
+        CounterRepository.getInstance().addCounterToList(newCounter);
     }
 
     public static void incrementCounter(String counterId) {
         Counter counter = CounterRepository.getInstance().getCounterById(counterId);
         int counterValue = counter.getCurrentValue() + 1;
-        CounterRepository.getInstance().changeCounter(counter, counterValue);
+        CounterRepository.getInstance().changeCounterValue(counter, counterValue);
     }
 
     public static void decrementCounter(String counterId) {
         Counter counter = CounterRepository.getInstance().getCounterById(counterId);
         if (counter.getCurrentValue() > 0) {
             int counterValue = counter.getCurrentValue() - 1;
-            CounterRepository.getInstance().changeCounter(counter, counterValue);
+            CounterRepository.getInstance().changeCounterValue(counter, counterValue);
         }
     }
 
     public static void resetCounter(String counterId) {
         Counter counter = CounterRepository.getInstance().getCounterById(counterId);
-        CounterRepository.getInstance().changeCounter(counter, counter.getInitialValue());
+        CounterRepository.getInstance().changeCounterValue(counter, counter.getInitialValue());
     }
 
     public static void deleteCounter(String counterId) {
         Counter counterToBeDeleted = CounterRepository.getInstance().getCounterById(counterId);
-        CounterRepository.getInstance().removeCounter(counterToBeDeleted);
+        CounterRepository.getInstance().removeCounterFromList(counterToBeDeleted);
     }
 
-    public static void updateCounter(Counter updatedCounter, String counterId) {
+    public static void updateCounter(String counterId, String counterName, String initialValue, String currentValue, String comment) {
         Counter currentCounter = CounterRepository.getInstance().getCounterById(counterId);
-        CounterRepository.getInstance().updateCounter(currentCounter, updatedCounter);
+        CounterRepository.getInstance().updateCounterInfo(currentCounter, counterName, initialValue, currentValue, comment);
     }
 }

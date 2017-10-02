@@ -12,17 +12,18 @@ import ca.prieto.countbook.Model.Counter;
 import ca.prieto.countbook.Model.CounterRepository;
 import ca.prieto.countbook.R;
 
-public class CounterDetailsEditActivity extends AppCompatActivity {
+public class CounterEditActivity extends AppCompatActivity {
     CounterRepository instance;
     String counterId;
 
     EditText counterName;
     EditText initialValue;
     EditText comment;
+    EditText currentValue;
 
     TextInputLayout counterNameWrapper;
     TextInputLayout initialValueWrapper;
-    TextInputLayout commentWrapper;
+    TextInputLayout currentValueWrapper;
 
 
     @Override
@@ -32,8 +33,11 @@ public class CounterDetailsEditActivity extends AppCompatActivity {
 
         instance = CounterRepository.getInstance();
         Intent intent = getIntent();
-        counterId = intent.getStringExtra(CounterDetailsActivity.CounterDetailsMessage);
+        counterId = intent.getStringExtra(CounterActivity.CounterDetailsMessage);
+        renderView();
+    }
 
+    public void renderView() {
         counterName = (EditText) findViewById(R.id.editCounterName);
         counterName.setText(CounterRepository.getInstance().getCounterById(counterId).getName());
 
@@ -43,20 +47,24 @@ public class CounterDetailsEditActivity extends AppCompatActivity {
         comment = (EditText) findViewById(R.id.editComment);
         comment.setText(CounterRepository.getInstance().getCounterById(counterId).getComment());
 
+        currentValue = (EditText) findViewById(R.id.editCurrentValue);
+        currentValue.setText(CounterRepository.getInstance().getCounterById(counterId).getCurrentValue().toString());
+
         counterNameWrapper = (TextInputLayout) findViewById(R.id.editCounterNameWrapper);
         initialValueWrapper = (TextInputLayout) findViewById(R.id.editInitialValueWrapper);
-        commentWrapper = (TextInputLayout) findViewById(R.id.editCommentWrapper);
+        currentValueWrapper = (TextInputLayout) findViewById(R.id.editCurrentValueWrapper);
+
     }
 
     public void updateCounter(View view) {
         if ( !counterName.getText().toString().trim().equalsIgnoreCase("") ||
-                !initialValue.getText().toString().trim().equalsIgnoreCase("") ) {
+                !initialValue.getText().toString().trim().equalsIgnoreCase("") ||
+                !currentValue.getText().toString().trim().equalsIgnoreCase("") ) {
 
-            Counter updatedCounter = new Counter(
-                    counterName.getText().toString(),
-                    Integer.parseInt(initialValue.getText().toString()),
-                    comment.getText().toString());
-            CounterController.updateCounter(updatedCounter, counterId);
+            CounterController.updateCounter(counterId, counterName.getText().toString(),
+                                            initialValue.getText().toString(),
+                                            currentValue.getText().toString(),
+                                            comment.getText().toString());
             finish();
 
         } else {
@@ -64,6 +72,8 @@ public class CounterDetailsEditActivity extends AppCompatActivity {
             counterNameWrapper.setError("This field cannot be blank!");
             initialValueWrapper.setErrorEnabled(true);
             initialValueWrapper.setError("This field cannot be blank");
+            currentValueWrapper.setErrorEnabled(true);
+            currentValueWrapper.setError("This field cannot be blank");
         }
     }
 

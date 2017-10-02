@@ -26,10 +26,8 @@ public class CounterRepository {
     private List<Counter> counters;
     private List<ICounterObserver> observers;
     private static final String FILENAME = "file.sav";
-
     private static CounterRepository instance = new CounterRepository();
     public static CounterRepository getInstance() {
-
         return instance;
     }
 
@@ -40,7 +38,6 @@ public class CounterRepository {
     }
 
     public List<Counter> getCounterList() {
-
         return this.counters;
     }
 
@@ -70,29 +67,30 @@ public class CounterRepository {
         }
     }
 
-    public void addCounter(Counter counter) {
+    public void addCounterToList(Counter counter) {
         this.counters.add(counter);
         notifyObserverOfChange();
         saveInFile();
     }
+
+    public void removeCounterFromList(Counter counterToBeDeleted) {
+        this.counters.remove(counterToBeDeleted);
+        notifyObserverOfChange();
+        saveInFile();
+    }
     
-    public void changeCounter(Counter counter, Integer value) {
+    public void changeCounterValue(Counter counter, Integer value) {
         counter.setCurrentValue(value);
         counter.setDate();
         notifyObserverOfChange();
         saveInFile();
     }
 
-    public void removeCounter(Counter counterToBeDeleted) {
-        this.counters.remove(counterToBeDeleted);
-        notifyObserverOfChange();
-        saveInFile();
-    }
-
-    public void updateCounter(Counter currentCounter, Counter updatedCounter) {
-        currentCounter.setName(updatedCounter.getName());
-        currentCounter.setInitialValue(updatedCounter.getInitialValue());
-        currentCounter.setComment(updatedCounter.getComment());
+    public void updateCounterInfo(Counter currentCounter, String counterName, String initialValue, String currentValue, String comment) {
+        currentCounter.setName(counterName);
+        currentCounter.setInitialValue(Integer.parseInt(initialValue));
+        currentCounter.setCurrentValue(Integer.parseInt(currentValue));
+        currentCounter.setComment(comment);
         currentCounter.setDate();
         notifyObserverOfChange();
         saveInFile();
@@ -102,26 +100,16 @@ public class CounterRepository {
         try {
             FileInputStream fis = CountBookApplication.getAppContext().openFileInput(FILENAME);
             BufferedReader in = new BufferedReader(new InputStreamReader(fis));
-
             Gson gson = new Gson();
-
             Type listType = new TypeToken<ArrayList<Counter>>(){}.getType();
             counters = gson.fromJson(in, listType);
 
         } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
             counters = new ArrayList<Counter>();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             throw new RuntimeException();
         }
-
-        ArrayList<String> tweets = new ArrayList<String>();
     }
-
-    /**
-     * saves the tweet in file
-     */
 
     private void saveInFile() {
         try {
@@ -134,10 +122,8 @@ public class CounterRepository {
             writer.flush();
             fos.close();
         } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
             throw new RuntimeException();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             throw new RuntimeException();
         }
     }

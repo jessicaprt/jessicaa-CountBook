@@ -8,7 +8,7 @@ import android.content.Context;
  */
 
 public class CountBookApplication extends Application {
-    
+
     private static Context context;
 
     public void onCreate() {
