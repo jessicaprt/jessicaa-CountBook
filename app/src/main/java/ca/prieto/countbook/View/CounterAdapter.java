@@ -22,12 +22,12 @@ import ca.prieto.countbook.R;
 
 public class CounterAdapter extends RecyclerView.Adapter<CounterAdapter.ViewHolder> {
 
-    private List<Counter> _counters = new ArrayList<Counter>();
+    private List<Counter> counters = new ArrayList<Counter>();
     private IOnItemClickListener listener;
-    private Context _context;
+    private Context context;
 
     public CounterAdapter(Context mContext) {
-        this._context = mContext;
+        this.context = mContext;
     }
 
     @Override
@@ -45,7 +45,7 @@ public class CounterAdapter extends RecyclerView.Adapter<CounterAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(CounterAdapter.ViewHolder holder, int position) {
-        Counter counter = _counters.get(position);
+        Counter counter = counters.get(position);
 
         TextView counterName = holder.counterName;
         counterName.setText(counter.getName());
@@ -60,11 +60,11 @@ public class CounterAdapter extends RecyclerView.Adapter<CounterAdapter.ViewHold
 
     @Override
     public int getItemCount() {
-        return _counters.size();
+        return counters.size();
     }
 
     public void setCounterList(List<Counter> counters) {
-        this._counters = counters;
+        this.counters = counters;
         notifyDataSetChanged();
     }
 
@@ -73,9 +73,9 @@ public class CounterAdapter extends RecyclerView.Adapter<CounterAdapter.ViewHold
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder  {
-        public TextView counterName;
-        public TextView currentCount;
-        public TextView currentDate;
+        private TextView counterName;
+        private TextView currentCount;
+        private TextView currentDate;
 
         public ViewHolder(final View itemView) {
             super(itemView);

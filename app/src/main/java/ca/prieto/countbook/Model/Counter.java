@@ -49,8 +49,8 @@ public class Counter {
         return currentValue;
     }
 
-    public void setCurrentValue(Integer val) {
-        this.currentValue = val;
+    public void setCurrentValue(Integer currentValue) {
+        this.currentValue = currentValue;
     }
 
     public String getComment() {

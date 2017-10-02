@@ -27,14 +27,15 @@ public class CounterRepository {
     private List<ICounterObserver> observers;
     private static final String FILENAME = "file.sav";
     private static CounterRepository instance = new CounterRepository();
-    public static CounterRepository getInstance() {
-        return instance;
-    }
 
     public CounterRepository() {
         this.counters = new ArrayList<Counter>();
         this.observers = new ArrayList<ICounterObserver>();
         loadFromFile();
+    }
+
+    public static CounterRepository getInstance() {
+        return instance;
     }
 
     public List<Counter> getCounterList() {

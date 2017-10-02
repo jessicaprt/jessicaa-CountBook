@@ -16,8 +16,8 @@ import ca.prieto.countbook.Model.ICounterObserver;
 import ca.prieto.countbook.R;
 
 public class CounterListActivity extends AppCompatActivity implements ICounterObserver, CounterAdapter.IOnItemClickListener {
-    ArrayList<Counter> counters;
-    CounterAdapter adapter;
+    private ArrayList<Counter> counters;
+    private CounterAdapter adapter;
     public static final String CounterListMessage = "com.prieto.CounterBook.CounterList";
 
     @Override

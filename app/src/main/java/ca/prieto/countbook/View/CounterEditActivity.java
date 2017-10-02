@@ -15,14 +15,14 @@ public class CounterEditActivity extends AppCompatActivity {
     CounterRepository instance;
     String counterId;
 
-    EditText counterName;
-    EditText initialValue;
-    EditText comment;
-    EditText currentValue;
+    private EditText counterName;
+    private EditText initialValue;
+    private EditText comment;
+    private EditText currentValue;
 
-    TextInputLayout counterNameWrapper;
-    TextInputLayout initialValueWrapper;
-    TextInputLayout currentValueWrapper;
+    private TextInputLayout counterNameWrapper;
+    private TextInputLayout initialValueWrapper;
+    private TextInputLayout currentValueWrapper;
 
 
     @Override

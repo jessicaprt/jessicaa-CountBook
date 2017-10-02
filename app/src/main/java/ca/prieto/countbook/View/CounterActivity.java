@@ -14,7 +14,7 @@ import ca.prieto.countbook.R;
 
 public class CounterActivity extends AppCompatActivity implements ICounterObserver {
     public static final String CounterDetailsMessage = "com.prieto.CounterBook.CounterDetails";
-    CounterRepository instance;
+    private CounterRepository instance;
     String counterId;
 
     private TextView counterName;
