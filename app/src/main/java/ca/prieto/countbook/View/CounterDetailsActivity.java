@@ -10,6 +10,9 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import ca.prieto.countbook.Controller.CounterController;
 import ca.prieto.countbook.Model.Counter;
 import ca.prieto.countbook.Model.CounterRepository;
@@ -63,18 +66,23 @@ public class CounterDetailsActivity extends AppCompatActivity implements ICounte
         Intent intent = getIntent();
         counterId = intent.getStringExtra(CounterListActivity.CounterListMessage);
 
+        render();
+    }
+
+    public void render() {
         setTextFromView(getCounterName(), instance.getCounterById(counterId).getName());
         setTextFromView(getCurrentCount(), instance.getCounterById(counterId).getCurrentValue().toString());
         setTextFromView(getCounterDescription(), instance.getCounterById(counterId).getComment().toString());
-        setTextFromView(getCounterDate(), "Created: " + instance.getCounterById(counterId).getDate().toString());
+        Date date = instance.getCounterById(counterId).getDate();
+        setTextFromView(getCounterDate(), "Last updated: " + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date));
 
         Button resetButton = (Button) findViewById(R.id.resetCounterButton);
         resetButton.setText("Reset Counter (" +
-                            CounterRepository
-                                    .getInstance()
-                                    .getCounterById(counterId)
-                                    .getInitialValue() +
-                            ")");
+                CounterRepository
+                        .getInstance()
+                        .getCounterById(counterId)
+                        .getInitialValue() +
+                ")");
     }
 
     public void setTextFromView(TextView textView, String message) {
@@ -106,18 +114,7 @@ public class CounterDetailsActivity extends AppCompatActivity implements ICounte
         try {
             setTextFromView(getCurrentCount(), instance.getCounterById(counterId).getCurrentValue().toString());
 
-            setTextFromView(getCounterName(), instance.getCounterById(counterId).getName());
-            setTextFromView(getCurrentCount(), instance.getCounterById(counterId).getCurrentValue().toString());
-            setTextFromView(getCounterDescription(), instance.getCounterById(counterId).getComment().toString());
-            setTextFromView(getCounterDate(), "Created: " + instance.getCounterById(counterId).getDate().toString());
-
-            Button resetButton = (Button) findViewById(R.id.resetCounterButton);
-            resetButton.setText("Reset Counter (" +
-                    CounterRepository
-                            .getInstance()
-                            .getCounterById(counterId)
-                            .getInitialValue() +
-                    ")");
+           render();
 
         } catch (CounterRepository.CannotFindCounterException e) {
             finish();

@@ -1,9 +1,22 @@
 package ca.prieto.countbook.Model;
 
+import android.content.Context;
+
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-import ca.prieto.countbook.View.AddCounterActivity;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import ca.prieto.countbook.CountBookApplication;
 
 /**
  * Created by Jessica on 2017-09-27.
@@ -12,6 +25,7 @@ import ca.prieto.countbook.View.AddCounterActivity;
 public class CounterRepository {
     private List<Counter> counters;
     private List<ICounterObserver> observers;
+    private static final String FILENAME = "file.sav";
 
     private static CounterRepository instance = new CounterRepository();
     public static CounterRepository getInstance() {
@@ -22,6 +36,7 @@ public class CounterRepository {
     public CounterRepository() {
         this.counters = new ArrayList<Counter>();
         this.observers = new ArrayList<ICounterObserver>();
+        loadFromFile();
     }
 
     public List<Counter> getCounterList() {
@@ -58,29 +73,73 @@ public class CounterRepository {
     public void addCounter(Counter counter) {
         this.counters.add(counter);
         notifyObserverOfChange();
+        saveInFile();
     }
     
     public void changeCounter(Counter counter, Integer value) {
         counter.setCurrentValue(value);
+        counter.setDate();
         notifyObserverOfChange();
-    }
-
-    public void changeCounter2 (Counter counter) {
-        int currentValue = counter.getCurrentValue() - 1;
-        counter.setCurrentValue(currentValue);
-        notifyObserverOfChange();
+        saveInFile();
     }
 
     public void removeCounter(Counter counterToBeDeleted) {
         this.counters.remove(counterToBeDeleted);
         notifyObserverOfChange();
+        saveInFile();
     }
 
     public void updateCounter(Counter currentCounter, Counter updatedCounter) {
         currentCounter.setName(updatedCounter.getName());
         currentCounter.setInitialValue(updatedCounter.getInitialValue());
         currentCounter.setComment(updatedCounter.getComment());
+        currentCounter.setDate();
         notifyObserverOfChange();
+        saveInFile();
+    }
+
+    private void loadFromFile() {
+        try {
+            FileInputStream fis = CountBookApplication.getAppContext().openFileInput(FILENAME);
+            BufferedReader in = new BufferedReader(new InputStreamReader(fis));
+
+            Gson gson = new Gson();
+
+            Type listType = new TypeToken<ArrayList<Counter>>(){}.getType();
+            counters = gson.fromJson(in, listType);
+
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            counters = new ArrayList<Counter>();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            throw new RuntimeException();
+        }
+
+        ArrayList<String> tweets = new ArrayList<String>();
+    }
+
+    /**
+     * saves the tweet in file
+     */
+
+    private void saveInFile() {
+        try {
+            FileOutputStream fos = CountBookApplication.getAppContext().openFileOutput(FILENAME,
+                    Context.MODE_PRIVATE);
+
+            OutputStreamWriter writer = new OutputStreamWriter(fos);
+            Gson gson = new Gson();
+            gson.toJson(counters, writer);
+            writer.flush();
+            fos.close();
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            throw new RuntimeException();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            throw new RuntimeException();
+        }
     }
 
     public class CannotFindCounterException extends RuntimeException {

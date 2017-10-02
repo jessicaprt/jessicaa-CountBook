@@ -64,7 +64,10 @@ public class Counter {
     }
 
     public Date getDate() {
-
         return date;
+    }
+
+    public void setDate() {
+        this.date = new Date();
     }
 }

@@ -2,6 +2,7 @@ package ca.prieto.countbook.View;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
@@ -18,6 +19,10 @@ public class CounterDetailsEditActivity extends AppCompatActivity {
     EditText counterName;
     EditText initialValue;
     EditText comment;
+
+    TextInputLayout counterNameWrapper;
+    TextInputLayout initialValueWrapper;
+    TextInputLayout commentWrapper;
 
 
     @Override
@@ -37,15 +42,29 @@ public class CounterDetailsEditActivity extends AppCompatActivity {
 
         comment = (EditText) findViewById(R.id.editComment);
         comment.setText(CounterRepository.getInstance().getCounterById(counterId).getComment());
+
+        counterNameWrapper = (TextInputLayout) findViewById(R.id.editCounterNameWrapper);
+        initialValueWrapper = (TextInputLayout) findViewById(R.id.editInitialValueWrapper);
+        commentWrapper = (TextInputLayout) findViewById(R.id.editCommentWrapper);
     }
 
     public void updateCounter(View view) {
-        Counter updatedCounter = new Counter(
-                counterName.getText().toString(),
-                Integer.parseInt(initialValue.getText().toString()),
-                comment.getText().toString());
-        CounterController.updateCounter(updatedCounter, counterId);
-        finish();
+        if ( !counterName.getText().toString().trim().equalsIgnoreCase("") ||
+                !initialValue.getText().toString().trim().equalsIgnoreCase("") ) {
+
+            Counter updatedCounter = new Counter(
+                    counterName.getText().toString(),
+                    Integer.parseInt(initialValue.getText().toString()),
+                    comment.getText().toString());
+            CounterController.updateCounter(updatedCounter, counterId);
+            finish();
+
+        } else {
+            counterNameWrapper.setErrorEnabled(true);
+            counterNameWrapper.setError("This field cannot be blank!");
+            initialValueWrapper.setErrorEnabled(true);
+            initialValueWrapper.setError("This field cannot be blank");
+        }
     }
 
     public void deleteCounter(View view) {
