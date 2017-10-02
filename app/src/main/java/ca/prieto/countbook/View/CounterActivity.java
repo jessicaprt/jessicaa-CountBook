@@ -7,30 +7,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import ca.prieto.countbook.Controller.CounterController;
 import ca.prieto.countbook.Model.CounterRepository;
 import ca.prieto.countbook.Model.ICounterObserver;
 import ca.prieto.countbook.R;
 
-/**
- *  TODO: set counter limit
- *
- */
 public class CounterActivity extends AppCompatActivity implements ICounterObserver {
     public static final String CounterDetailsMessage = "com.prieto.CounterBook.CounterDetails";
     CounterRepository instance;
     String counterId;
 
-    public TextView getCurrentCount() {
-        return (TextView) findViewById(R.id.currentCount);
-    }
-
-    public TextView getCounterName() {
-        return (TextView) findViewById(R.id.currentCounterName);
-    }
+    private TextView counterName;
+    private TextView currentCount;
 
     @Override
     protected void onResume() {
@@ -49,17 +37,16 @@ public class CounterActivity extends AppCompatActivity implements ICounterObserv
         instance = CounterRepository.getInstance();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_counter);
-
+        counterName = (TextView) findViewById(R.id.currentCounterName);
+        currentCount = (TextView) findViewById(R.id.currentCount);
         Intent intent = getIntent();
         counterId = intent.getStringExtra(CounterListActivity.CounterListMessage);
-
-        render();
+        renderView();
     }
 
-    public void render() {
-        setTextFromView(getCounterName(), instance.getCounterById(counterId).getName());
-        setTextFromView(getCurrentCount(), instance.getCounterById(counterId).getCurrentValue().toString());
-
+    public void renderView() {
+        setTextFromView(counterName, instance.getCounterById(counterId).getName());
+        setTextFromView(currentCount, instance.getCounterById(counterId).getCurrentValue().toString());
         Button resetButton = (Button) findViewById(R.id.resetCounterButton);
         resetButton.setText("Reset Counter (" +
                 CounterRepository
@@ -100,9 +87,8 @@ public class CounterActivity extends AppCompatActivity implements ICounterObserv
     @Override
     public void onCounterUpdated() {
         try {
-            setTextFromView(getCurrentCount(), instance.getCounterById(counterId).getCurrentValue().toString());
-
-           render();
+            setTextFromView(currentCount, instance.getCounterById(counterId).getCurrentValue().toString());
+           renderView();
 
         } catch (CounterRepository.CannotFindCounterException e) {
             finish();

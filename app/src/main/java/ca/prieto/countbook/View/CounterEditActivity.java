@@ -33,6 +33,11 @@ public class CounterEditActivity extends AppCompatActivity {
         instance = CounterRepository.getInstance();
         Intent intent = getIntent();
         counterId = intent.getStringExtra(CounterActivity.CounterDetailsMessage);
+
+        counterNameWrapper = (TextInputLayout) findViewById(R.id.editCounterNameWrapper);
+        initialValueWrapper = (TextInputLayout) findViewById(R.id.editInitialValueWrapper);
+        currentValueWrapper = (TextInputLayout) findViewById(R.id.editCurrentValueWrapper);
+
         renderView();
     }
 
@@ -41,18 +46,24 @@ public class CounterEditActivity extends AppCompatActivity {
         counterName.setText(CounterRepository.getInstance().getCounterById(counterId).getName());
 
         initialValue = (EditText) findViewById(R.id.editInitialValue);
-        initialValue.setText(CounterRepository.getInstance().getCounterById(counterId).getInitialValue().toString());
+        initialValue.setText(CounterRepository
+                                .getInstance()
+                                .getCounterById(counterId)
+                                .getInitialValue()
+                                .toString());
 
         comment = (EditText) findViewById(R.id.editComment);
-        comment.setText(CounterRepository.getInstance().getCounterById(counterId).getComment());
+        comment.setText(CounterRepository
+                                .getInstance()
+                                .getCounterById(counterId)
+                                .getComment());
 
         currentValue = (EditText) findViewById(R.id.editCurrentValue);
-        currentValue.setText(CounterRepository.getInstance().getCounterById(counterId).getCurrentValue().toString());
-
-        counterNameWrapper = (TextInputLayout) findViewById(R.id.editCounterNameWrapper);
-        initialValueWrapper = (TextInputLayout) findViewById(R.id.editInitialValueWrapper);
-        currentValueWrapper = (TextInputLayout) findViewById(R.id.editCurrentValueWrapper);
-
+        currentValue.setText(CounterRepository
+                                .getInstance()
+                                .getCounterById(counterId)
+                                .getCurrentValue()
+                                .toString());
     }
 
     public void updateCounter(View view) {
