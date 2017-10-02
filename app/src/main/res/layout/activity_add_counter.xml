@@ -85,8 +85,10 @@
         android:layout_marginLeft="20dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="63dp"
+        android:backgroundTint="@color/primary_dark_material_light_1"
         android:onClick="createCounter"
         android:text="Create"
+        android:textColor="@android:color/background_light"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/counterDescriptionWrapper" />
 

@@ -112,12 +112,14 @@
         android:layout_marginRight="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="30dp"
+        android:backgroundTint="@color/colorPrimary"
         android:onClick="updateCounter"
         android:text="Save Changes"
+        android:textColor="@android:color/background_light"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editCommentWrapper"
-        app:layout_constraintHorizontal_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/editCommentWrapper" />
 
     <Button
         android:id="@+id/deleteCounterButton"
