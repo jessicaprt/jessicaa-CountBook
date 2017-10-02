@@ -8,7 +8,6 @@
 /captures
 .externalNativeBuild
 
-*.ap_
 *.class
 gen/
 keystore.properties

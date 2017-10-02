@@ -31,6 +31,9 @@ public class CounterDetailsActivity extends AppCompatActivity {
         setText((TextView) findViewById(R.id.counterName),
                 currentCounter.getName().toString());
 
+        setText((TextView) findViewById(R.id.initialValue),
+                "Initial Value: " + currentCounter.getInitialValue().toString());
+
         setText((TextView) findViewById(R.id.currentValue),
                 "Current Value: " + currentCounter.getCurrentValue().toString());
 
