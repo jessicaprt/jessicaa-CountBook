@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.EditText;
 
 import ca.prieto.countbook.Controller.CounterController;
-import ca.prieto.countbook.Model.Counter;
 import ca.prieto.countbook.Model.CounterRepository;
 import ca.prieto.countbook.R;
 
@@ -57,8 +56,8 @@ public class CounterEditActivity extends AppCompatActivity {
     }
 
     public void updateCounter(View view) {
-        if ( !counterName.getText().toString().trim().equalsIgnoreCase("") ||
-                !initialValue.getText().toString().trim().equalsIgnoreCase("") ||
+        if ( !counterName.getText().toString().trim().equalsIgnoreCase("") &&
+                !initialValue.getText().toString().trim().equalsIgnoreCase("") &&
                 !currentValue.getText().toString().trim().equalsIgnoreCase("") ) {
 
             CounterController.updateCounter(counterId, counterName.getText().toString(),

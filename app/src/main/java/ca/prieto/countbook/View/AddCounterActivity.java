@@ -26,13 +26,14 @@ public class AddCounterActivity extends AppCompatActivity {
 
         EditText counterDescription = (EditText) findViewById(R.id.counterDescription);
 
-        if ( !counterName.getText().toString().trim().equalsIgnoreCase("") ||
+        if ( !counterName.getText().toString().trim().equalsIgnoreCase("") &&
              !initialValue.getText().toString().trim().equalsIgnoreCase("") ) {
 
             CounterController.addCounter(counterName.getText().toString(),
                     Integer.parseInt(initialValue.getText().toString()),
                     counterDescription.getText().toString());
             finish();
+
         } else {
             counterNameWrapper.setErrorEnabled(true);
             counterNameWrapper.setError("This field cannot be blank!");
